@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.mulesoft.org/schema/mule/domino"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+            xmlns:schemadoc="http://www.mulesoft.org/schema/mule/schemadoc"
+            targetNamespace="http://www.mulesoft.org/schema/mule/domino"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.mulesoft.org/schema/mule/core"
+                schemaLocation="http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd" />
+    <xsd:import namespace = "http://www.mulesoft.org/schema/mule/schemadoc"
+                schemaLocation = "http://www.mulesoft.org/schema/mule/schemadoc/3.1/mule-schemadoc.xsd"/>
+
+    <xsd:annotation>
+        <xsd:documentation>Lotus Domino Transport</xsd:documentation>
+        <xsd:appinfo>
+            <schemadoc:short-name>Domino</schemadoc:short-name>
+            <schemadoc:page-title>Domino Transport</schemadoc:page-title>
+            <schemadoc:transport-features
+                receiveEvents="false" dispatchEvents="true"
+                requestEvents="true" transactions="false"
+                streaming="false">
+                <schemadoc:inboundMEPs in-only="false" in-optional-out="true" in-out="true"/>
+                <schemadoc:outboundMEPs out-only="true" out-in="true" out-optional-in="true"/>
+            </schemadoc:transport-features>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="connector" type="dominoConnectorType" substitutionGroup="mule:abstract-connector">
+        <xsd:annotation>
+            <xsd:documentation>
+                Lotus Domino Transport
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:complexType name="dominoConnectorType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:connectorType">
+                <xsd:attributeGroup ref="addressAttributes"/>
+                <xsd:attributeGroup ref="propertyAttributes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="inbound-endpoint" type="inboundEndpointType" substitutionGroup="mule:abstract-inbound-endpoint"/>
+    <xsd:complexType name="inboundEndpointType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:inboundEndpointType">
+                <xsd:attributeGroup ref="addressAttributes"/>
+                <xsd:attributeGroup ref="propertyAttributes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="outbound-endpoint" type="outboundEndpointType" substitutionGroup="mule:abstract-outbound-endpoint"/>
+    <xsd:complexType name="outboundEndpointType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:outboundEndpointType">
+                <xsd:attributeGroup ref="addressAttributes"/>
+                <xsd:attributeGroup ref="propertyAttributes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="endpoint" type="globalEndpointType" substitutionGroup="mule:abstract-global-endpoint"/>
+    <xsd:complexType name="globalEndpointType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:globalEndpointType">
+                <xsd:attributeGroup ref="addressAttributes"/>
+                <xsd:attributeGroup ref="propertyAttributes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:attributeGroup name="addressAttributes">
+        <xsd:attribute name="host" type="xsd:string"/>
+        <xsd:attribute name="port" type="xsd:string"/>
+        <xsd:attribute name="path" type="xsd:string"/>
+    </xsd:attributeGroup>
+
+    <xsd:attributeGroup name="propertyAttributes">
+    </xsd:attributeGroup>
+
+    <xsd:element name="document-to-dxl" type="mule:abstractTransformerType"
+                 substitutionGroup="mule:abstract-transformer">
+        <xsd:annotation>
+            <xsd:documentation>
+                Transformer to convert Document object to DXL string.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="dxl-to-document" type="mule:abstractTransformerType"
+                 substitutionGroup="mule:abstract-transformer">
+        <xsd:annotation>
+            <xsd:documentation>
+                Transformer to convert DXL string to Document object.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+</xsd:schema>

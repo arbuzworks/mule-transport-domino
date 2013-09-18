@@ -1,0 +1,1 @@
+http\://www.mulesoft.org/schema/mule/domino=org.mule.transport.domino.config.DominoNamespaceHandler

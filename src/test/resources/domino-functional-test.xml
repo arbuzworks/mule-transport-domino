@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:domino="http://www.mulesoft.org/schema/mule/domino"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+       http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd
+       http://www.mulesoft.org/schema/mule/domino http://www.mulesoft.org/schema/mule/domino/3.1/mule-domino.xsd">
+
+	<context:property-placeholder location="test.properties" />
+
+	<domino:connector name="dominoConnector" host="${host}"
+		port="${port}" />
+
+	<flow name="dominoFlowCreate">
+		<vm:inbound-endpoint path="test.create"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/create"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowCreateDxl">
+		<vm:inbound-endpoint path="test.create_dxl"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/create_dxl"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowRead">
+		<vm:inbound-endpoint path="test.read"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/read"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowReadDxl">
+		<vm:inbound-endpoint path="test.read_dxl"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/read_dxl"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowFind">
+		<vm:inbound-endpoint path="test.find"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/find"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowFindDxl">
+		<vm:inbound-endpoint path="test.find_dxl"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/find_dxl"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowFindDocument">
+		<vm:inbound-endpoint path="test.find_document"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/find_dxl"
+			exchange-pattern="request-response"/>
+		<domino:dxl-to-document />
+	</flow>
+
+	<flow name="dominoFlowUpdate">
+		<vm:inbound-endpoint path="test.update"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/update"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowUpdateDxl">
+		<vm:inbound-endpoint path="test.update_dxl"
+			exchange-pattern="request-response" />
+		<domino:outbound-endpoint address="domino://${host}:${port}/update_dxl"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowDelete">
+		<inbound-endpoint address="vm://test.delete"
+			exchange-pattern="request-response" />
+		<outbound-endpoint address="domino://${host}:${port}/delete"
+			exchange-pattern="request-response" />
+	</flow>
+
+	<flow name="dominoFlowDocumentToDxl">
+		<vm:inbound-endpoint path="test.document_to_dxl"
+			exchange-pattern="request-response" />
+		<domino:document-to-dxl />
+	</flow>
+	
+	<flow name="dominoFlowDxlToDocument">
+		<vm:inbound-endpoint path="test.dxl_to_document"
+			exchange-pattern="request-response" />
+		<domino:dxl-to-document/>
+	</flow>
+	
+</mule>
